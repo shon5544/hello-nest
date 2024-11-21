@@ -1,6 +1,5 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Request } from 'express';
 import { UserHelloRequest } from './user.request';
 import { UserHelloResponse } from './user.response';
 

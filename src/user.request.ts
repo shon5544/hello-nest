@@ -1,3 +1,3 @@
 export class UserHelloRequest {
-    name: string;
+  name: string;
 }
