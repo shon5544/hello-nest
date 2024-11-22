@@ -8,6 +8,16 @@ import {
 } from 'typeorm';
 import { Article } from '../domain/article.domain';
 
+interface ArticleEntityProps {
+  id?: number;
+  title: string;
+  content: string;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
+  isDeleted?: boolean;
+}
+
 @Entity('articles')
 export class ArticleEntity {
   @PrimaryGeneratedColumn()
@@ -29,23 +39,46 @@ export class ArticleEntity {
   deletedAt?: Date;
 
   @Column()
-  isDeleted: boolean = false;
+  isDeleted: boolean;
 
-  constructor(title: string, content: string) {
+  constructor(props?: ArticleEntityProps) {
+    const {
+      id,
+      title,
+      content,
+      createdAt = null,
+      updatedAt = null,
+      deletedAt = null,
+      isDeleted = false,
+    } = props || {};
+  
+    this.id = id;
     this.title = title;
     this.content = content;
-    this.isDeleted = false;
+    this.isDeleted = isDeleted;
   }
 
   toDomain(): Article {
-    return new Article(
-      this.id,
-      this.title,
-      this.content,
-      this.createdAt,
-      this.updatedAt,
-      this.deletedAt,
-      this.isDeleted,
-    );
+    return new Article({
+      id: this.id,
+      title: this.title,
+      content: this.content,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      deletedAt: this.deletedAt,
+      isDeleted: this.isDeleted,
+    });
+  }
+
+  static of(article: Article): ArticleEntity {
+    return new ArticleEntity({
+      id: article.id,
+      title: article.title,
+      content: article.content,
+      createdAt: article.createdAt,
+      updatedAt: article.updatedAt,
+      deletedAt: article.deletedAt,
+      isDeleted: article.isDeleted,
+    });
   }
 }

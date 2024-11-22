@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { ArticleEntityRepository } from '../persistence/article.repository';
-import { ArticleEntity } from '../persistence/article.entity';
+import { Inject, Injectable } from '@nestjs/common';
 import { Article } from './article.domain';
+import { ArticleRepository } from './article-repository.interface';
 
 @Injectable()
 export class ArticleWriter {
-  constructor(private readonly articleRepository: ArticleEntityRepository) {}
+  constructor(
+    @Inject('impl')
+    private readonly articleRepository: ArticleRepository,
+  ) {}
 
   async write(title: string, content: string): Promise<Article> {
-    const toSave = new ArticleEntity(title, content);
+    const toSave = new Article({ title: title, content: content });
 
-    return (await this.articleRepository.save(toSave)).toDomain();
+    return await this.articleRepository.save(toSave);
   }
 }

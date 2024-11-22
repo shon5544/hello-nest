@@ -13,7 +13,7 @@ export class ArticleController {
   async createBlog(
     @Body() request: CreateArticleRequest,
   ): Promise<CreateArticleResponse> {
-    const result: CreateArticleResult = await this.articleService.createArticle(
+    const result: CreateArticleResult = await this.articleService.create(
       request.title,
       request.content,
     );

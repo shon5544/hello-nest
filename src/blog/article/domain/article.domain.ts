@@ -1,3 +1,13 @@
+interface ArticleProps {
+  id?: number;
+  title: string;
+  content: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
+  isDeleted?: boolean;
+}
+
 export class Article {
   id: number;
   title: string;
@@ -7,15 +17,15 @@ export class Article {
   deletedAt: Date;
   isDeleted: boolean = false;
 
-  constructor(
-    id: number,
-    title: string,
-    content: string,
-    createdAt: Date,
-    updatedAt: Date,
-    deletedAt: Date,
-    isDeleted: boolean,
-  ) {
+  constructor({
+    id,
+    title,
+    content,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    isDeleted = false,
+  }: ArticleProps) {
     this.id = id;
     this.title = title;
     this.content = content;
