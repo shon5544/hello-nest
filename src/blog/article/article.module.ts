@@ -9,10 +9,6 @@ import { ArticleEntity } from './persistence/article.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([ArticleEntity])],
   controllers: [ArticleController],
-  providers: [
-    ArticleService, 
-    ArticleEntityRepository,
-    ArticleWriter,
-  ],
+  providers: [ArticleService, ArticleEntityRepository, ArticleWriter],
 })
 export class ArticleModule {}

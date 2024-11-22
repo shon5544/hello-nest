@@ -5,10 +5,7 @@ import { ArticleModule } from './blog/article/article.module';
 import { databaseProviders } from './database.config';
 
 @Module({
-  imports: [
-    ArticleModule,
-    databaseProviders,
-  ],
+  imports: [ArticleModule, databaseProviders],
   controllers: [AppController],
   providers: [AppService],
 })
