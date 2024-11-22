@@ -1,6 +1,6 @@
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { AppService } from './app.service';
-import { HealthCheckResponse } from './user.response';
+import { HealthCheckResponse } from './health.response';
 
 @Controller()
 export class AppController {
