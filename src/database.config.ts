@@ -1,5 +1,5 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ArticleEntity } from './blog/article/persistence/article.entity';
+import { ArticleEntity } from './article/persistence/article.entity';
 
 export const databaseProviders = TypeOrmModule.forRoot({
   type: 'mysql',
