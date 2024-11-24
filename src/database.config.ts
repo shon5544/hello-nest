@@ -1,5 +1,4 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ArticleEntity } from './article/persistence/article.entity';
 
 export const databaseProviders = TypeOrmModule.forRoot({
   type: 'mysql',
@@ -8,6 +7,6 @@ export const databaseProviders = TypeOrmModule.forRoot({
   username: 'root',
   password: 'rootpassword',
   database: 'hellonest',
-  entities: [ArticleEntity],
+  entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: true,
 });
