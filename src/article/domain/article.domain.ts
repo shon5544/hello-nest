@@ -40,4 +40,22 @@ export class Article {
     this.deletedAt = new Date();
     return this.isDeleted;
   }
+
+  update({
+    newTitle,
+    newContent,
+  }: {
+    newTitle: string | undefined;
+    newContent: string | undefined;
+  }): Article {
+    if (newTitle != undefined) {
+      this.title = newTitle;
+    }
+
+    if (newContent != undefined) {
+      this.content = newContent;
+    }
+
+    return this;
+  }
 }
