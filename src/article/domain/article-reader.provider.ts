@@ -1,18 +1,22 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Article } from './article.domain';
 import { ArticleRepository } from './article-repository.interface';
+import { Article } from './article.domain';
 import { ARTICLE_REPO } from '../article.inject-name';
 
 @Injectable()
-export class ArticleWriter {
+export class ArticleReader {
   constructor(
     @Inject(ARTICLE_REPO)
     private readonly articleRepository: ArticleRepository,
   ) {}
 
-  async write(title: string, content: string): Promise<Article> {
-    const toSave = new Article({ title: title, content: content });
+  async getById(id: number): Promise<Article> {
+    const toReturn = await this.articleRepository.findById(id);
 
-    return await this.articleRepository.save(toSave);
+    if (toReturn == null) {
+      throw new Error(`Article not found: id=${id}`);
+    }
+
+    return toReturn;
   }
 }

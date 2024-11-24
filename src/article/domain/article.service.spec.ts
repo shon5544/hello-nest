@@ -5,6 +5,8 @@ import { ArticleService } from './article.service';
 import { ArticleEntity } from '../persistence/article.entity';
 import { CreateArticleResult } from './article.result';
 import { ArticleRepositoryImpl } from '../persistence/article.repository-impl';
+import { ARTICLE_REPO } from '../article.inject-name';
+import { ArticleReader } from './article-reader.provider';
 
 const mockArticleEntityRepository = {
   save: jest
@@ -39,10 +41,12 @@ describe('ArticleService', () => {
           useValue: mockArticleEntityRepository,
         },
         {
-          provide: 'impl',
+          provide: ARTICLE_REPO,
           useClass: ArticleRepositoryImpl,
         },
+        ArticleReader,
       ],
+      exports: [ArticleReader],
     }).compile();
 
     service = module.get<ArticleService>(ArticleService);
