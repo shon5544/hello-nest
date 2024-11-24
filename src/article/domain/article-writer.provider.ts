@@ -15,4 +15,10 @@ export class ArticleWriter {
 
     return await this.articleRepository.save(toSave);
   }
+
+  async update(article: Article, title: string, content: string): Promise<Article> {
+    const updatedArticle: Article = article.update({ newTitle: title, newContent: content });
+
+    return await this.articleRepository.save(updatedArticle);
+  }
 }
