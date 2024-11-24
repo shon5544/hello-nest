@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Article } from './article.domain';
 import { ArticleRepository } from './article-repository.interface';
+import { ARTICLE_REPO } from '../article.inject-name';
 
 @Injectable()
 export class ArticleWriter {
   constructor(
-    @Inject('impl')
+    @Inject(ARTICLE_REPO)
     private readonly articleRepository: ArticleRepository,
   ) {}
 
