@@ -10,11 +10,25 @@ export class ArticleRepositoryImpl implements ArticleRepository {
     private readonly articleEntityRepository: ArticleEntityRepository,
   ) {}
 
+  findById(id: number): Promise<Article | null> {
+    return this.articleEntityRepository
+      .findOne({
+        where: { id },
+      })
+      .then((article) => {
+        if (article != null) {
+          return article.toDomain();
+        }
+
+        return null;
+      });
+  }
+
   async save(article: Article): Promise<Article> {
     const toSave = ArticleEntity.of(article);
 
-    const saved = await this.articleEntityRepository.save(toSave);
+    const saved: ArticleEntity = await this.articleEntityRepository.save(toSave);
 
-    return new Article(saved);
+    return saved.toDomain();
   }
 }
